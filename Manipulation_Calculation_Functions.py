@@ -106,7 +106,7 @@ def change_position(players, positions):
 			new_position = input('Enter new position: ').upper()
 
 			if new_position in positions:
-				players[player - 1][1] = new_position
+				players[player - 1][1] = " " + new_position
 				break
 			else:
 				print('Invalid position. Try again.')

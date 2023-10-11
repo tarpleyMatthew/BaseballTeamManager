@@ -1,5 +1,4 @@
-====================================================
-Project for SWDV 210
-Baseball Team Manager Python Program
+Project 1 SWDV 210
+Baseball team manager console program (python)
 Matt Tarpley
-====================================================
+
