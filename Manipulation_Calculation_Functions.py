@@ -1,6 +1,6 @@
 #### Manipulation and Calculation Functions ########
 
-#get at bats & hits w/ validation
+#get at bats & hits
 def get_at_bats_and_hits():
 	while True:
 		try:
@@ -24,7 +24,7 @@ def get_at_bats_and_hits():
 			continue
 	return at_bats, num_hits
 
-#calc batting average
+#calculate batting average
 def calc_batting_average(num_hits, at_bats):
 	try:
 		average = round(num_hits / at_bats, 3)

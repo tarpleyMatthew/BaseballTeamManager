@@ -1,4 +1,5 @@
 ######## Functions to read and write data to seperate file #################
+
 import csv
 FILENAME = "player_data.csv"
 

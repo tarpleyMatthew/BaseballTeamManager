@@ -3,8 +3,8 @@
 #Original Author:      Matt Tarpley                                  #
 #Date Created:          10/5/2023                                    #
 #Version:               1.00.00                                      #
-#Date Last Modified:    10/10/2023                                    #
-#Modified by:          Matthew Tarpley                               #
+#Date Last Modified:    10/11/2023                                    #
+#Modified by:          Matt Tarpley                               #
 #Modification log:     
 #					============================
 #						mwt 10/3/23: created program
@@ -20,6 +20,10 @@
 #							 created csv to save player data
 #                            set up GitHub remote repo, new branch for save player data changes
 #                            pushed changes, merged with master
+#						mwt 10/11/23
+# 							created local branch 'handle-exeptions'
+#							added error handling/cleaned up code and comments
+#							merged w/ master and pushed to GitHub
 # 
 #------------------------------------------------------------------------------------------------------------------>
 
@@ -49,20 +53,18 @@ def display_title():
 	print('C, 1B, 2B, 3B, SS, LF, CF, RF, P')
 	print()
 
+#main function
 def main():
-	#tuple for positions/list of list for player
 	positions = ('C', '1B', '2B', '3B', 'SS', 'LF', 'CF', 'RF' , 'P')
-#	players = [
-#		['Joe', 'P', 10, 2, 0.2],
-#		['Tom', 'SS', 11, 4, 0.364],
-#		['Ben', '3B', 9, 3, 0.333],
-#	]
 	display_title()
+
+	#read data from file
 	players = rw.read_player_data()
+
 	print("=" * 60)
 	menu_option = int(input("Menu option: "))
 
-	#while loop to handle logic in program
+	#menu options
 	while menu_option != 7:
 
 		#display lineup
@@ -113,6 +115,6 @@ def main():
 			menu_option = int(input("Menu option: "))
 	print("Bye!")
 
-
+#exec program
 if __name__=="__main__":
     main()
