@@ -3,22 +3,34 @@
 #get at bats & hits w/ validation
 def get_at_bats_and_hits():
 	while True:
-		at_bats = int(input("At bats: "))
-		if at_bats < 0 or at_bats > 1000:
-			print('Please enter a number between 1 and 1000.')
+		try:
+			at_bats = int(input("At bats: "))
+			if at_bats < 0 or at_bats > 1000:
+				print('Please enter a number between 0 and 1000.')
+				continue
+			break
+		except:
+			print('Invalid integer. Try again')
 			continue
-		break
 	while True:
-		num_hits = int(input("Hits: "))
-		if num_hits > at_bats or num_hits < 0:
-			print('Please enter a number of hits that is\n more than 0 but less than the at bats.')
+		try:
+			num_hits = int(input("Hits: "))
+			if num_hits > at_bats or num_hits < 0:
+				print('Please enter a number of hits that is\nat least 0 but less than at bats.')
+				continue
+			break
+		except:
+			print('Invalid integer. Try again')
 			continue
-		break
 	return at_bats, num_hits
 
 #calc batting average
 def calc_batting_average(num_hits, at_bats):
-	average = round(num_hits / at_bats, 3)
+	try:
+		average = round(num_hits / at_bats, 3)
+	except ZeroDivisionError:
+		print('cannot divide by zero, average will be 0.')
+		average = 0
 	return average
 
 #display lineup
@@ -26,7 +38,7 @@ def display_lineup(players):
 	print('		Player		POS	AB	H	AVG')
 	print('-' * 60)
 	for i, player in enumerate(players, start=1):
-		print(f"{i}		{player[0]}		{player[1]}	{player[2]}	{player[3]}	{player[4]}\n")
+		print(f"{i}		{player[0]}		{player[1]}	{player[2]}	{player[3]}	{player[4]}")
 
 #add player
 def add_player(players, positions):
@@ -52,7 +64,11 @@ def add_player(players, positions):
 #delete player
 def delete_player(players):
 	while True:
-		index = int(input('Lineup number: '))
+		try:
+			index = int(input('Lineup number: '))
+		except:
+			print('invalid integer. Please try again.')
+			continue
 		if index < 1 or index > len(players):
 			print('There is no player in that lineup number try again.')
 			continue
@@ -73,14 +89,23 @@ def delete_player(players):
 			break
 #move player
 def move_player(players):
-	while True: 
-		index = int(input('Current Lineup Number: '))
+	while True:
+		try:
+			index = int(input('Current lineup number: '))
+		except:
+			print('invalid integer. Please try again.')
+			continue 
 		if index < 1 or index > len(players):
 			print('There is no player in that lineup number try again.')
 			continue
 		else:
 			print(f'{players[index - 1][0]} was selected.')
-			new_index = int(input('New lineup number: '))
+
+			try:
+				new_index = int(input('New lineup number: '))
+			except:
+				print('invalid integer. Please try again.')
+				continue
 
 			if new_index < 1 or new_index > len(players):
 				print('Invalid lineup number please try again.')
@@ -96,7 +121,11 @@ def move_player(players):
 #change player position
 def change_position(players, positions):
 	while True:
-		player = int(input('Player lineup number: '))
+		try:
+			player = int(input('Player lineup number: '))
+		except:
+			print('invalid integer. Please try again.')
+			continue 
 		if player < 1 or player > len(players):
 			print('There is no player in that lineup number try again.')
 			continue
@@ -106,7 +135,7 @@ def change_position(players, positions):
 			new_position = input('Enter new position: ').upper()
 
 			if new_position in positions:
-				players[player - 1][1] = " " + new_position
+				players[player - 1][1] = new_position
 				break
 			else:
 				print('Invalid position. Try again.')
@@ -118,7 +147,11 @@ def change_position(players, positions):
 #edit player stats
 def edit_stats(players):
 	while True:
-		player = int(input('Player lineup number: '))
+		try:
+			player = int(input('Player lineup number: '))
+		except:
+			print('invalid integer. Please try again.')
+			continue 
 		if player < 1 or player > len(players):
 			print('There is no player in that lineup number try again.')
 			continue

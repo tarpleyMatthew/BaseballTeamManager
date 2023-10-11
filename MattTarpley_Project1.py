@@ -47,7 +47,7 @@ def display_title():
 	display_menu()
 	print('POSITIONS')
 	print('C, 1B, 2B, 3B, SS, LF, CF, RF, P')
-	print("=" * 60)
+	print()
 
 def main():
 	#tuple for positions/list of list for player
@@ -57,8 +57,9 @@ def main():
 #		['Tom', 'SS', 11, 4, 0.364],
 #		['Ben', '3B', 9, 3, 0.333],
 #	]
-	players = rw.read_player_data()
 	display_title()
+	players = rw.read_player_data()
+	print("=" * 60)
 	menu_option = int(input("Menu option: "))
 
 	#while loop to handle logic in program
