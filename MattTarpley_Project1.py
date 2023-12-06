@@ -24,12 +24,17 @@
 # 							created local branch 'handle-exeptions'
 #							added error handling/cleaned up code and comments
 #							merged w/ master and pushed to GitHub
-# 
+#						
+#					    mwt 12/4/23
+# 							completed step 9 
+#							created 3 tier folders
+#							completed step 10
+#							
 #------------------------------------------------------------------------------------------------------------------>
 
 #import functions
-import read_write_file as rw
-import Manipulation_Calculation_Functions as mcf
+import Database.read_write_file as rw
+import Business.Manipulation_Calculation_Functions as mcf
 
 #display menu
 def display_menu():
@@ -44,24 +49,27 @@ def display_menu():
 	print()
 
 #display title
-def display_title(): 
-	print("=" * 60)
+def display_title(positions): 
+	print("=" * 64)
 	print("        Baseball Team Manager")
+	print()
+	mcf.get_date()
 	print()
 	display_menu()
 	print('POSITIONS')
-	print('C, 1B, 2B, 3B, SS, LF, CF, RF, P')
+	for p in positions:
+		print(f"'{p}", end=' ')
 	print()
 
 #main function
 def main():
 	positions = ('C', '1B', '2B', '3B', 'SS', 'LF', 'CF', 'RF' , 'P')
-	display_title()
+	display_title(positions)
 
 	#read data from file
 	players = rw.read_player_data()
 
-	print("=" * 60)
+	print("=" * 64)
 	menu_option = int(input("Menu option: "))
 
 	#menu options
@@ -89,7 +97,7 @@ def main():
 		#move player
 		elif menu_option == 4:
 
-			mcf.move_player(players)
+			players = mcf.move_player(players)
 			rw.write_player_data(players)
 			menu_option = int(input("Menu option: "))
 
