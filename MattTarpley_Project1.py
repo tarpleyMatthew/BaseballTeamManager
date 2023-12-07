@@ -2,8 +2,8 @@
 #--
 #Original Author:      Matt Tarpley                                  #
 #Date Created:          10/5/2023                                    #
-#Version:               1.00.00                                      #
-#Date Last Modified:    10/11/2023                                    #
+#Version:               2.00.00                                      #
+#Date Last Modified:    12/7/2023                                    #
 #Modified by:          Matt Tarpley                               #
 #Modification log:     
 #					============================
@@ -29,12 +29,21 @@
 # 							completed step 9 
 #							created 3 tier folders
 #							completed step 10
-#							
+#							merged to master and pushed to GitHub
+#
+#						mwt 12/5/23
+#							steps 14/15/16
+#						
+#						mwt 12/7/23
+#							completed final steps, cleaned up code, pushed to github
 #------------------------------------------------------------------------------------------------------------------>
 
 #import functions
-import Database.read_write_file as rw
-import Business.Manipulation_Calculation_Functions as mcf
+#import db.read_write_file as rw
+import tkinter as tk
+import db.DbAccess as db
+import objects.DataHandler as handler
+from ui.gui import TeamManagerGUI
 
 #display menu
 def display_menu():
@@ -53,7 +62,7 @@ def display_title(positions):
 	print("=" * 64)
 	print("        Baseball Team Manager")
 	print()
-	mcf.get_date()
+	handler.get_date()
 	print()
 	display_menu()
 	print('POSITIONS')
@@ -64,11 +73,16 @@ def display_title(positions):
 #main function
 def main():
 	positions = ('C', '1B', '2B', '3B', 'SS', 'LF', 'CF', 'RF' , 'P')
-	display_title(positions)
+	#read data from sql
+	lineup = db.get_lineup()
 
+	root = tk.Tk()
+	root.title("Matt Tarpley Baseball Team Manager")
+	teamManager = TeamManagerGUI(root, lineup)
 	#read data from file
-	players = rw.read_player_data()
+	#players = rw.read_player_data()
 
+	display_title(positions)
 	print("=" * 64)
 	menu_option = int(input("Menu option: "))
 
@@ -77,44 +91,35 @@ def main():
 
 		#display lineup
 		if menu_option == 1:
+			lineup = db.get_lineup()
 
-			mcf.display_lineup(players)
+			handler.display_lineup(lineup)
 			menu_option = int(input("Menu option: "))
 		#add player
 		elif menu_option == 2:
 
-			mcf.add_player(players, positions)
-			rw.write_player_data(players)
+			handler.add_player(lineup, positions)
 			menu_option = int(input("Menu option: "))
-
 		#delete player
 		elif menu_option == 3:
 
-			mcf.delete_player(players)
-			rw.write_player_data(players)
+			handler.delete_player(lineup)
 			menu_option = int(input("Menu option: "))
-
 		#move player
 		elif menu_option == 4:
 
-			players = mcf.move_player(players)
-			rw.write_player_data(players)
+			handler.move_player(lineup)
 			menu_option = int(input("Menu option: "))
-
 		#edit player position
 		elif menu_option == 5:
 
-			mcf.change_position(players, positions)
-			rw.write_player_data(players)
+			handler.change_position(lineup, positions)
 			menu_option = int(input("Menu option: "))
-
 		#edit player stats
 		elif menu_option == 6:
 
-			mcf.edit_stats(players)
-			rw.write_player_data(players)
+			handler.edit_stats(lineup)
 			menu_option = int(input("Menu option: "))	
-
 		else:
 			print("Not a valid option. Please try again.")
 			print()
@@ -122,7 +127,7 @@ def main():
 			print()
 			menu_option = int(input("Menu option: "))
 	print("Bye!")
-
+	root.mainloop()
 #exec program
 if __name__=="__main__":
     main()
